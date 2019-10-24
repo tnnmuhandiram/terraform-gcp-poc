@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/tnnmuhandiram/terraform/modules/collections"
-	"github.com/tnnmuhandiram/terraform/modules/logger"
-	"github.com/tnnmuhandiram/terraform/modules/retry"
-	"github.com/tnnmuhandiram/terraform/modules/shell"
+	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/collections"
+	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/logger"
+	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/retry"
+	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/shell"
 )
 
 // GetCommonOptions extracts commons terraform options

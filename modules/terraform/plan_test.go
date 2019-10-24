@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	"github.com/tnnmuhandiram/terraform/modules/files"
+	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/files"
 )
 
 func TestInitAndPlanWithError(t *testing.T) {

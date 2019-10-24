@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/tnnmuhandiram/terraform/modules/files"
+	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/files"
 )
 
 func TestGetResourceCount(t *testing.T) {

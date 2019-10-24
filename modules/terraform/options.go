@@ -3,7 +3,7 @@ package terraform
 import (
 	"time"
 
-	"github.com/tnnmuhandiram/terraform/modules/ssh"
+	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/ssh"
 )
 
 // Options for running Terraform commands

@@ -1,4 +1,4 @@
-module github.com/tnnmuhandiram/terraform
+module github.com/tnnmuhandiram/terraform-gcp-poc-gcp-poc-poc
 
 go 1.13
 
@@ -22,6 +22,7 @@ require (
 	github.com/pquerna/otp v1.2.0
 	github.com/sirupsen/logrus v1.4.2
 	github.com/stretchr/testify v1.4.0
+	github.com/tnnmuhandiram/terraform-gcp-poc v0.0.0-20191024052749-3cb7c0818392
 	github.com/urfave/cli v1.21.0
 	golang.org/x/crypto v0.0.0-20190820162420-60c769a6c586
 	golang.org/x/net v0.0.0-20190813141303-74dc4d7220e7

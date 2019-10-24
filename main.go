@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	routes "./routes"
+	routes "github.com/tnnmuhandiram/terraform-gcp-poc/routes"
 )
 
 func main() {

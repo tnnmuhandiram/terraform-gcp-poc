@@ -9,11 +9,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/tnnmuhandiram/terraform/modules/retry"
+	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/retry"
 
-	"github.com/tnnmuhandiram/terraform/modules/customerrors"
-	"github.com/tnnmuhandiram/terraform/modules/logger"
-	"github.com/tnnmuhandiram/terraform/modules/shell"
+	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/customerrors"
+	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/logger"
+	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/shell"
 )
 
 // Options are the options for Packer.

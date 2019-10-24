@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/tnnmuhandiram/terraform/modules/files"
-	"github.com/tnnmuhandiram/terraform/modules/logger"
+	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/files"
+	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/logger"
 )
 
 // SKIP_STAGE_ENV_VAR_PREFIX is the prefix used for skipping stage environment variables.

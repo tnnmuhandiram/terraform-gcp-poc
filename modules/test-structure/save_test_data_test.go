@@ -4,9 +4,9 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/tnnmuhandiram/terraform/modules/files"
-	"github.com/tnnmuhandiram/terraform/modules/k8s"
-	"github.com/tnnmuhandiram/terraform/modules/terraform"
+	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/files"
+	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/k8s"
+	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/terraform"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

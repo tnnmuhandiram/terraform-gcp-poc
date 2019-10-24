@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/tnnmuhandiram/terraform/modules/files"
+	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/files"
 )
 
 func TestInitBackendConfig(t *testing.T) {

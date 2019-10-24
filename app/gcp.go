@@ -9,10 +9,10 @@ import (
 
 	"github.com/joho/godotenv"
 
-	"github.com/tnnmuhandiram/terraform/modules/terraform"
-	test_structure "github.com/tnnmuhandiram/terraform/modules/test-structure"
+	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/terraform"
+	test_structure "github.com/tnnmuhandiram/terraform-gcp-poc/modules/test-structure"
 
-	"github.com/tnnmuhandiram/terraform/modules/random"
+	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/random"
 )
 
 func init() {

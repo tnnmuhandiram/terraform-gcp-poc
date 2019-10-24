@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	gcp "../app"
+	gcp "github.com/tnnmuhandiram/terraform-gcp-poc/app"
 	"github.com/gorilla/mux"
 )
 
