@@ -29,6 +29,7 @@ type Compute struct {
 }
 
 func ComputeCreate(w http.ResponseWriter, r *http.Request) {
+	print("-=======================")
 
 	// ctx := context.Background()
 	// projectID := "postgress-cluster"
@@ -52,12 +53,12 @@ func ComputeCreate(w http.ResponseWriter, r *http.Request) {
 	// if _, err := client.Put(ctx, taskKey, &task); err != nil {
 	// 	log.Fatalf("Failed to save task: %v", err)
 	// }
-	exampleDir := structure.CopyTerraformFolderToTemp(".../", "scripts/gcp/compute")
+	exampleDir := structure.CopyTerraformFolderToTemp("../", "scripts/gcp/compute")
 
 	projectId := "postgress-cluster"
 	zone := "us-east1-b"
-	bucketName := fmt.Sprintf("projectX-bucket-%s", strings.ToLower(random.UniqueId()))
-	instanceName := fmt.Sprintf("projectX-instance-%s", strings.ToLower(random.UniqueId()))
+	bucketName := fmt.Sprintf("projectx-bucket-%s", strings.ToLower(random.UniqueId()))
+	instanceName := fmt.Sprintf("projectx-instance-%s", strings.ToLower(random.UniqueId()))
 	terraformOptions := &terraform.Options{
 		TerraformDir: exampleDir,
 		Vars: map[string]interface{}{
