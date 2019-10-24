@@ -9,8 +9,8 @@ import (
 
 	"github.com/joho/godotenv"
 
+	structure "github.com/tnnmuhandiram/terraform-gcp-poc/modules/structure"
 	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/terraform"
-	test_structure "github.com/tnnmuhandiram/terraform-gcp-poc/modules/test-structure"
 
 	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/random"
 )
@@ -53,12 +53,12 @@ func ComputeCreate(w http.ResponseWriter, r *http.Request) {
 	// if _, err := client.Put(ctx, taskKey, &task); err != nil {
 	// 	log.Fatalf("Failed to save task: %v", err)
 	// }
-	exampleDir := test_structure.CopyTerraformFolderToTemp("../", "examples/terraform-gcp-example")
+	exampleDir := structure.CopyTerraformFolderToTemp(".../", "scripts/compute-engine")
 
 	projectId := "postgress-cluster"
 	zone := "us-east1-b"
-	bucketName := fmt.Sprintf("terratest-gcp-example-%s", strings.ToLower(random.UniqueId()))
-	instanceName := fmt.Sprintf("terratest-gcp-example-%s", strings.ToLower(random.UniqueId()))
+	bucketName := fmt.Sprintf("projectx-gcp-bucket-%s", strings.ToLower(random.UniqueId()))
+	instanceName := fmt.Sprintf("projectx-gcp-instance-%s", strings.ToLower(random.UniqueId()))
 	terraformOptions := &terraform.Options{
 		TerraformDir: exampleDir,
 		Vars: map[string]interface{}{

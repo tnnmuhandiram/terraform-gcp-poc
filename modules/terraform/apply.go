@@ -8,7 +8,10 @@ import (
 
 func InitAndApply(options *Options) string {
 	out, err := InitAndApplyE(options)
+
 	print(err)
+	print(out)
+	print("------------------------")
 	return out
 }
 
