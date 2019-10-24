@@ -9,8 +9,8 @@ import (
 
 	"github.com/joho/godotenv"
 
-	structure "github.com/tnnmuhandiram/terraform-gcp-poc/modules/structure"
 	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/terraform"
+	test_structure "github.com/tnnmuhandiram/terraform-gcp-poc/modules/test_structure"
 
 	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/random"
 )
@@ -53,7 +53,7 @@ func ComputeCreate(w http.ResponseWriter, r *http.Request) {
 	// if _, err := client.Put(ctx, taskKey, &task); err != nil {
 	// 	log.Fatalf("Failed to save task: %v", err)
 	// }
-	exampleDir := structure.CopyTerraformFolderToTemp("../", "scripts/gcp/compute")
+	exampleDir := test_structure.CopyTerraformFolderToTemp("../", "examples/compute")
 
 	projectId := "postgress-cluster"
 	zone := "us-east1-b"

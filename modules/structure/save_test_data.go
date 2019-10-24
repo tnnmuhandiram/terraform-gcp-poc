@@ -1,4 +1,4 @@
-package structure
+package test_structure
 
 import (
 	"encoding/json"
