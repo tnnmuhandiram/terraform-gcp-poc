@@ -10,7 +10,7 @@ import (
 	"github.com/joho/godotenv"
 
 	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/terraform"
-	test_structure "github.com/tnnmuhandiram/terraform-gcp-poc/modules/test_structure"
+	test_structure "github.com/tnnmuhandiram/terraform-gcp-poc/modules/test-structure"
 
 	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/random"
 )
