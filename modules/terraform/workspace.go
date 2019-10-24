@@ -7,9 +7,6 @@ import (
 	"testing"
 )
 
-// WorkspaceSelectOrNew runs terraform workspace with the given options and the workspace name
-// and returns a name of the current workspace. It tries to select a workspace with the given
-// name, or it creates a new one if it doesn't exist.
 func WorkspaceSelectOrNew(t *testing.T, options *Options, name string) string {
 	out, err := WorkspaceSelectOrNewE(t, options, name)
 	if err != nil {
@@ -18,9 +15,6 @@ func WorkspaceSelectOrNew(t *testing.T, options *Options, name string) string {
 	return out
 }
 
-// WorkspaceSelectOrNewE runs terraform workspace with the given options and the workspace name
-// and returns a name of the current workspace. It tries to select a workspace with the given
-// name, or it creates a new one if it doesn't exist.
 func WorkspaceSelectOrNewE(t *testing.T, options *Options, name string) (string, error) {
 	out, err := RunTerraformCommandE(options, "workspace", "list")
 	if err != nil {
@@ -50,12 +44,6 @@ func isExistingWorkspace(out string, name string) bool {
 }
 
 func nameMatchesWorkspace(name string, workspace string) bool {
-	// Regex for matching workspace should match for strings with optional leading asterisk "*"
-	// following optional white spaces following the workspace name.
-	// E.g. for the given name "terratest", following strings will match:
-	//
-	//    "* terratest"
-	//    "  terratest"
 	match, _ := regexp.MatchString(fmt.Sprintf("^\\*?\\s*%s$", name), workspace)
 	return match
 }

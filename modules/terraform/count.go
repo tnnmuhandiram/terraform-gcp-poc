@@ -9,14 +9,12 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// ResourceCount represents counts of resources affected by terraform apply/plan/destroy command.
 type ResourceCount struct {
 	Add     int
 	Change  int
 	Destroy int
 }
 
-// Regular expressions for terraform commands stdout pattern matching.
 const (
 	applyRegexp             = `Apply complete! Resources: (\d+) added, (\d+) changed, (\d+) destroyed\.`
 	destroyRegexp           = `Destroy complete! Resources: (\d+) destroyed\.`
@@ -26,15 +24,12 @@ const (
 
 const getResourceCountErrMessage = "Can't parse Terraform output"
 
-// GetResourceCount parses stdout/stderr of apply/plan/destroy commands and returns number of affected resources.
-// This will fail the test if given stdout/stderr isn't a valid output of apply/plan/destroy.
 func GetResourceCount(t *testing.T, cmdout string) *ResourceCount {
 	cnt, err := GetResourceCountE(t, cmdout)
 	require.NoError(t, err)
 	return cnt
 }
 
-// GetResourceCountE parses stdout/stderr of apply/plan/destroy commands and returns number of affected resources.
 func GetResourceCountE(t *testing.T, cmdout string) (*ResourceCount, error) {
 	cnt := ResourceCount{}
 

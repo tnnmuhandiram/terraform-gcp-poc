@@ -6,8 +6,6 @@ import (
 	"strings"
 )
 
-// FormatArgs converts the inputs to a format palatable to terraform. This includes converting the given vars to the
-// format the Terraform CLI expects (-var key=value).
 func FormatArgs(options *Options, args ...string) []string {
 	var terraformArgs []string
 	terraformArgs = append(terraformArgs, args...)
@@ -17,14 +15,10 @@ func FormatArgs(options *Options, args ...string) []string {
 	return terraformArgs
 }
 
-// FormatTerraformVarsAsArgs formats the given variables as command-line args for Terraform (e.g. of the format
-// -var key=value).
 func FormatTerraformVarsAsArgs(vars map[string]interface{}) []string {
 	return formatTerraformArgs(vars, "-var", true)
 }
 
-// FormatTerraformArgs will format multiple args with the arg name (e.g. "-var-file", []string{"foo.tfvars", "bar.tfvars"})
-// returns "-var-file foo.tfvars -var-file bar.tfvars"
 func FormatTerraformArgs(argName string, args []string) []string {
 	argsList := []string{}
 	for _, argValue := range args {
@@ -33,15 +27,10 @@ func FormatTerraformArgs(argName string, args []string) []string {
 	return argsList
 }
 
-// FormatTerraformBackendConfigAsArgs formats the given variables as backend config args for Terraform (e.g. of the
-// format -backend-config=key=value).
 func FormatTerraformBackendConfigAsArgs(vars map[string]interface{}) []string {
 	return formatTerraformArgs(vars, "-backend-config", false)
 }
 
-// Format the given vars into 'Terraform' format, with each var being prefixed with the given prefix. If
-// useSpaceAsSeparator is true, a space will separate the prefix and each var (e.g., -var foo=bar). If
-// useSpaceAsSeparator is false, an equals will separate the prefix and each var (e.g., -backend-config=foo=bar).
 func formatTerraformArgs(vars map[string]interface{}, prefix string, useSpaceAsSeparator bool) []string {
 	var args []string
 
@@ -58,16 +47,7 @@ func formatTerraformArgs(vars map[string]interface{}, prefix string, useSpaceAsS
 	return args
 }
 
-// Terraform allows you to pass in command-line variables using HCL syntax (e.g. -var foo=[1,2,3]). Unfortunately,
-// while their golang hcl library can convert an HCL string to a Go type, they don't seem to offer a library to convert
-// arbitrary Go types to an HCL string. Therefore, this method is a simple implementation that correctly handles
-// ints, booleans, lists, and maps. Everything else is forced into a string using Sprintf. Hopefully, this approach is
-// good enough for the type of variables we deal with in Terratest.
 func toHclString(value interface{}, isNested bool) string {
-	// Ideally, we'd use a type switch here to identify slices and maps, but we can't do that, because Go doesn't
-	// support generics, and the type switch only matches concrete types. So we could match []interface{}, but if
-	// a user passes in []string{}, that would NOT match (the same logic applies to maps). Therefore, we have to
-	// use reflection and manually convert into []interface{} and map[string]interface{}.
 
 	if slice, isSlice := tryToConvertToGenericSlice(value); isSlice {
 		return sliceToHclString(slice)
@@ -78,9 +58,6 @@ func toHclString(value interface{}, isNested bool) string {
 	}
 }
 
-// Try to convert the given value to a generic slice. Return the slice and true if the underlying value itself was a
-// slice and an empty slice and false if it wasn't. This is necessary because Go is a shitty language that doesn't
-// have generics, nor useful utility methods built-in. For more info, see: http://stackoverflow.com/a/12754757/483528
 func tryToConvertToGenericSlice(value interface{}) ([]interface{}, bool) {
 	reflectValue := reflect.ValueOf(value)
 	if reflectValue.Kind() != reflect.Slice {
@@ -96,9 +73,6 @@ func tryToConvertToGenericSlice(value interface{}) ([]interface{}, bool) {
 	return genericSlice, true
 }
 
-// Try to convert the given value to a generic map. Return the map and true if the underlying value itself was a
-// map and an empty map and false if it wasn't. This is necessary because Go is a shitty language that doesn't
-// have generics, nor useful utility methods built-in. For more info, see: http://stackoverflow.com/a/12754757/483528
 func tryToConvertToGenericMap(value interface{}) (map[string]interface{}, bool) {
 	reflectValue := reflect.ValueOf(value)
 	if reflectValue.Kind() != reflect.Map {
@@ -120,7 +94,6 @@ func tryToConvertToGenericMap(value interface{}) (map[string]interface{}, bool) 
 	return genericMap, true
 }
 
-// Convert a slice to an HCL string. See ToHclString for details.
 func sliceToHclString(slice []interface{}) string {
 	hclValues := []string{}
 
@@ -132,7 +105,6 @@ func sliceToHclString(slice []interface{}) string {
 	return fmt.Sprintf("[%s]", strings.Join(hclValues, ", "))
 }
 
-// Convert a map to an HCL string. See ToHclString for details.
 func mapToHclString(m map[string]interface{}) string {
 	keyValuePairs := []string{}
 
@@ -144,8 +116,6 @@ func mapToHclString(m map[string]interface{}) string {
 	return fmt.Sprintf("{%s}", strings.Join(keyValuePairs, ", "))
 }
 
-// Convert a primitive, such as a bool, int, or string, to an HCL string. If this isn't a primitive, force its value
-// using Sprintf. See ToHclString for details.
 func primitiveToHclString(value interface{}, isNested bool) string {
 	switch v := value.(type) {
 
@@ -156,7 +126,6 @@ func primitiveToHclString(value interface{}, isNested bool) string {
 		return "0"
 
 	case string:
-		// If string is nested in a larger data structure (e.g. list of string, map of string), ensure value is quoted
 		if isNested {
 			return fmt.Sprintf("\"%v\"", v)
 		}

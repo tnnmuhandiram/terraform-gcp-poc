@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	gcp "github.com/tnnmuhandiram/terraform-gcp-poc/app"
 	"github.com/gorilla/mux"
+	gcp "github.com/tnnmuhandiram/terraform-gcp-poc/app/gcp"
 )
 
 //New http handler
@@ -16,7 +16,7 @@ func Initilize() http.Handler {
 		fmt.Fprintf(w, "Terraform POC Up and Running")
 	})
 
-	routes.HandleFunc("/gcp/compute/create", gcp.computeCreate).Methods("POST")
+	routes.HandleFunc("/gcp/compute/create", gcp.ComputeCreate).Methods("POST")
 	// routes.HandleFunc("/users/{id}", user.Show).Methods("GET")
 	// routes.HandleFunc("/users", user.AllUsers).Methods("GET")
 
