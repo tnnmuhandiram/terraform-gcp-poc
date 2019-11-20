@@ -2,10 +2,8 @@ package terraform
 
 import (
 	"fmt"
-	"testing"
 
 	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/collections"
-	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/logger"
 	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/retry"
 	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/shell"
 )
@@ -32,14 +30,6 @@ func GetCommonOptions(options *Options, args ...string) (*Options, []string) {
 	return options, args
 }
 
-func RunTerraformCommand(t *testing.T, additionalOptions *Options, args ...string) string {
-	out, err := RunTerraformCommandE(additionalOptions, args...)
-	if err != nil {
-		t.Fatal(err)
-	}
-	return out
-}
-
 func RunTerraformCommandE(additionalOptions *Options, additionalArgs ...string) (string, error) {
 	options, args := GetCommonOptions(additionalOptions, additionalArgs...)
 
@@ -57,7 +47,7 @@ func RunTerraformCommandE(additionalOptions *Options, additionalArgs ...string) 
 	})
 }
 
-func RunTerraformCommandAndGetStdoutE(t *testing.T, additionalOptions *Options, additionalArgs ...string) (string, error) {
+func RunTerraformCommandAndGetStdoutE(additionalOptions *Options, additionalArgs ...string) (string, error) {
 	options, args := GetCommonOptions(additionalOptions, additionalArgs...)
 
 	cmd := shell.Command{
@@ -71,35 +61,4 @@ func RunTerraformCommandAndGetStdoutE(t *testing.T, additionalOptions *Options, 
 	return retry.DoWithRetryableErrorsE(description, options.RetryableTerraformErrors, options.MaxRetries, options.TimeBetweenRetries, func() (string, error) {
 		return shell.RunCommandAndGetStdOutE(cmd)
 	})
-}
-
-func GetExitCodeForTerraformCommand(t *testing.T, additionalOptions *Options, args ...string) int {
-	exitCode, err := GetExitCodeForTerraformCommandE(t, additionalOptions, args...)
-	if err != nil {
-		t.Fatal(err)
-	}
-	return exitCode
-}
-
-func GetExitCodeForTerraformCommandE(t *testing.T, additionalOptions *Options, additionalArgs ...string) (int, error) {
-	options, args := GetCommonOptions(additionalOptions, additionalArgs...)
-
-	logger.Logf(t, "Running %s with args %v", options.TerraformBinary, args)
-	cmd := shell.Command{
-		Command:           options.TerraformBinary,
-		Args:              args,
-		WorkingDir:        options.TerraformDir,
-		Env:               options.EnvVars,
-		OutputMaxLineSize: options.OutputMaxLineSize,
-	}
-
-	_, err := shell.RunCommandAndGetOutputE(cmd)
-	if err == nil {
-		return DefaultSuccessExitCode, nil
-	}
-	exitCode, getExitCodeErr := shell.GetExitCodeForRunCommandError(err)
-	if getExitCodeErr == nil {
-		return exitCode, nil
-	}
-	return DefaultErrorExitCode, getExitCodeErr
 }

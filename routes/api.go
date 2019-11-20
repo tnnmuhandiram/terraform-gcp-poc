@@ -17,6 +17,7 @@ func Initilize() http.Handler {
 	})
 
 	routes.HandleFunc("/gcp/compute/create", gcp.ComputeCreate).Methods("POST")
+	routes.HandleFunc("/gcp/compute/{id}", gcp.ComputeDestroy).Methods("DELETE")
 	// routes.HandleFunc("/users/{id}", user.Show).Methods("GET")
 	// routes.HandleFunc("/users", user.AllUsers).Methods("GET")
 

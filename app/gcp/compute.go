@@ -1,19 +1,20 @@
 package gcp
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 
-	"strings"
-
+	"github.com/hashicorp/vault/api"
 	"github.com/joho/godotenv"
 
 	structure "github.com/tnnmuhandiram/terraform-gcp-poc/modules/structure"
 	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/terraform"
-
-	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/random"
 )
+
+var token = "s.nyAMiGNtZbbFUyD98Ac9PpqJ"
+var vault_addr = "http://127.0.0.1:8200"
 
 func init() {
 	if err := godotenv.Load(); err != nil {
@@ -22,53 +23,115 @@ func init() {
 }
 
 type Compute struct {
-	ID          string
-	ProjectName string
-	InstaneID   string
-	Zone        string
+	ID        string
+	ProjectID string
+	InstaneID string
+	Zone      string
+	PublicIP  string
+	BucketURL string
 }
 
 func ComputeCreate(w http.ResponseWriter, r *http.Request) {
-	print("-=======================")
 
+	config := &api.Config{
+		Address: vault_addr,
+	}
+	client, err := api.NewClient(config)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	client.SetToken(token)
+	c := client.Logical()
+	// secret, err := c.Read("secret/data/hello")
+	secret, err := c.Read("secret/data/gcp/cred.json")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	b, _ := json.Marshal(secret.Data)
+	fmt.Println(string(b))
+
+	// templateDir := structure.CopyTerraformFolderToTemp(".../", "scripts/compute-engine")
+	// projectId := r.FormValue("project_id")
+	// zone := r.FormValue("zone")
+	// machineType := r.FormValue("machine_type")
+	// bucketName := fmt.Sprintf("projectx-gcp-bucket-%s", strings.ToLower(random.UniqueId()))
+	// instanceName := fmt.Sprintf("projectx-gcp-instance-%s", strings.ToLower(random.UniqueId()))
+	// terraformOptions := &terraform.Options{
+	// 	TerraformDir: templateDir,
+	// 	Vars: map[string]interface{}{
+	// 		"gcp_project_id": projectId,
+	// 		"zone":           zone,
+	// 		"instance_name":  instanceName,
+	// 		"bucket_name":    bucketName,
+	// 		"machine_type":   machineType,
+	// 		"credentails_json" :
+	// 	},
+	// }
+	// // defer terraform.Destroy(terraformOptions)
+	// terraform.InitAndApply(terraformOptions)
+	// // terraform.ApplyE(terraformOptions)
+	// bucketURL := terraform.Output(terraformOptions, "bucket_url")
+	// instanceOutputName := terraform.Output(terraformOptions, "instance_id")
+	// publicIP := terraform.Output(terraformOptions, "public_ip")
+	// // fmt.printf("%v", bucketURL)
+	// fmt.Printf(instanceOutputName)
+	// fmt.Printf(publicIP)
+
+	// // fmt.Print(out)
 	// ctx := context.Background()
-	// projectID := "postgress-cluster"
+	// // projectID := "postgress-cluster"
 
-	// client, err := datastore.NewClient(ctx, projectID)
+	// client, err := datastore.NewClient(ctx, projectId)
 	// if err != nil {
 	// 	log.Fatalf("Failed to create client: %v", err)
 	// }
 
 	// u1 := uuid.Must(uuid.NewV4())
 
-	// kind := "Task"
+	// kind := "Terraform"
 	// name := u1.String()
-	// taskKey := datastore.NameKey(kind, name, nil)
+	// terraformKey := datastore.NameKey(kind, name, nil)
 
-	// task := Gcp{
-	// 	ID:          u1.String(),
-	// 	ProjectName: os.Getenv("GCP_PROJECT"),
+	// terraformData := Compute{
+	// 	ID:        u1.String(),
+	// 	ProjectID: projectId,
+	// 	InstaneID: instanceOutputName,
+	// 	Zone:      zone,
+	// 	PublicIP:  publicIP,
+	// 	BucketURL: bucketURL,
 	// }
 
-	// if _, err := client.Put(ctx, taskKey, &task); err != nil {
-	// 	log.Fatalf("Failed to save task: %v", err)
+	// if _, err := client.Put(ctx, terraformKey, &terraformData); err != nil {
+	// 	log.Fatalf("Failed to save terraform Data: %v", err)
 	// }
-	exampleDir := structure.CopyTerraformFolderToTemp(".../", "scripts/compute-engine")
+}
 
-	projectId := "postgress-cluster"
-	zone := "us-east1-b"
-	bucketName := fmt.Sprintf("projectx-gcp-bucket-%s", strings.ToLower(random.UniqueId()))
-	instanceName := fmt.Sprintf("projectx-gcp-instance-%s", strings.ToLower(random.UniqueId()))
+func ComputeDestroy(w http.ResponseWriter, r *http.Request) {
+	// id := mux.Vars(r)["id"]
+	// kind := "Task"
+	// ctx := context.Background()
+	// client, err := datastore.NewClient(ctx, r.FormValue("project_id"))
+	// print(err)
+	// q := datastore.NewQuery("Task").Filter("uuid =", "gopher").Limit(1)
+
+	// terraformKey := datastore.NameKey(kind, id, nil)
+	// data := client.Get(ctx, terraformKey, nil)
+	// // print(er)
+	// fmt.Print(data)
+	// fmt.Print(terraformKey)
+	templateDir := structure.CopyTerraformFolderToTemp(".../", "scripts/compute-engine")
 	terraformOptions := &terraform.Options{
-		TerraformDir: exampleDir,
+		TerraformDir: templateDir,
 		Vars: map[string]interface{}{
-			"gcp_project_id": projectId,
-			"zone":           zone,
-			"instance_name":  instanceName,
-			"bucket_name":    bucketName,
+			"gcp_project_id": r.FormValue("project_id"),
+			"zone":           r.FormValue("zone"),
+			"instance_name":  r.FormValue("instance_name"),
+			"bucket_name":    r.FormValue("bucket_name"),
+			"machine_type":   r.FormValue("machine_type"),
 		},
 	}
+	terraform.Destroy(terraformOptions)
 
-	out := terraform.InitAndApply(terraformOptions)
-	fmt.Print(out)
 }

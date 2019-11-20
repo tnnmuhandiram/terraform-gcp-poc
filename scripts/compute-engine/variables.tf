@@ -1,25 +1,7 @@
-# ---------------------------------------------------------------------------------------------------------------------
-# ENVIRONMENT VARIABLES
-# You must define the following environment variables.
-# ---------------------------------------------------------------------------------------------------------------------
-
-# GOOGLE_CREDENTIALS
-# or
-# GOOGLE_APPLICATION_CREDENTIALS
 
 variable "gcp_project_id" {
   description = "The ID of the GCP project in which these resources will be created."
 }
-
-# ---------------------------------------------------------------------------------------------------------------------
-# REQUIRED PARAMETERS
-# You must provide a value for each of these parameters.
-# ---------------------------------------------------------------------------------------------------------------------
-
-# ---------------------------------------------------------------------------------------------------------------------
-# OPTIONAL PARAMETERS
-# These parameters have reasonable defaults.
-# ---------------------------------------------------------------------------------------------------------------------
 
 variable "instance_name" {
   description = "The Name to use for the Cloud Instance."
@@ -44,4 +26,8 @@ variable "bucket_name" {
 variable "bucket_location" {
   description = "The location to store the Bucket. This value can be regional or multi-regional."
   default     = "US"
+}
+
+variable "credentails_json" {
+  description = "The creadentails to authntication Google Cloud Platform"
 }

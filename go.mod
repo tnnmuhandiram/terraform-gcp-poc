@@ -14,12 +14,14 @@ require (
 	github.com/gorilla/mux v1.7.3
 	github.com/gruntwork-io/gruntwork-cli v0.5.1
 	github.com/gruntwork-io/terratest v0.22.1
+	github.com/hashicorp/vault/api v1.0.4
 	github.com/joho/godotenv v1.3.0
 	github.com/jstemmer/go-junit-report v0.0.0-20190106144839-af01ea7f8024
 	github.com/magiconair/properties v1.8.1
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/oracle/oci-go-sdk v7.1.0+incompatible
 	github.com/pquerna/otp v1.2.0
+	github.com/satori/go.uuid v1.2.0
 	github.com/sirupsen/logrus v1.4.2
 	github.com/stretchr/testify v1.4.0
 	github.com/tnnmuhandiram/terraform v0.0.0-20191024052749-3cb7c0818392
@@ -32,3 +34,5 @@ require (
 	k8s.io/apimachinery v0.0.0-20190704094520-6f131bee5e2c
 	k8s.io/client-go v0.0.0-20190704095228-386e588352a4
 )
+
+replace github.com/satori/go.uuid v1.2.0 => github.com/satori/go.uuid v1.2.1-0.20181028125025-b2ce2384e17b
