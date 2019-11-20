@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/hashicorp/vault/api"
 	"github.com/joho/godotenv"
@@ -12,9 +13,6 @@ import (
 	structure "github.com/tnnmuhandiram/terraform-gcp-poc/modules/structure"
 	"github.com/tnnmuhandiram/terraform-gcp-poc/modules/terraform"
 )
-
-var token = "s.nyAMiGNtZbbFUyD98Ac9PpqJ"
-var vault_addr = "http://127.0.0.1:8200"
 
 func init() {
 	if err := godotenv.Load(); err != nil {
@@ -30,6 +28,9 @@ type Compute struct {
 	PublicIP  string
 	BucketURL string
 }
+
+var token = os.Getenv("VAULT_TOKEN")
+var vault_addr = os.Getenv("VAULT_ADDR")
 
 func ComputeCreate(w http.ResponseWriter, r *http.Request) {
 
