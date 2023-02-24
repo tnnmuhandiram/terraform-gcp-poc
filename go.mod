@@ -3,36 +3,31 @@ module github.com/tnnmuhandiram/terraform-gcp-poc
 go 1.13
 
 require (
-	cloud.google.com/go v0.38.0
-	github.com/Azure/azure-sdk-for-go v32.5.0+incompatible
-	github.com/Azure/go-autorest/autorest v0.9.1
-	github.com/Azure/go-autorest/autorest/azure/auth v0.3.0
-	github.com/aws/aws-sdk-go v1.23.8
-	github.com/ghodss/yaml v1.0.0
-	github.com/go-sql-driver/mysql v1.4.1
-	github.com/google/uuid v0.0.0-20161128191214-064e2069ce9c
+	cloud.google.com/go v0.51.0 // indirect
+	cloud.google.com/go/storage v1.0.0
+	github.com/golang/protobuf v1.4.2 // indirect
 	github.com/gorilla/mux v1.7.3
 	github.com/gruntwork-io/gruntwork-cli v0.5.1
 	github.com/gruntwork-io/terratest v0.22.1
 	github.com/hashicorp/vault/api v1.0.4
+	github.com/jinzhu/gorm v1.9.16
 	github.com/joho/godotenv v1.3.0
-	github.com/jstemmer/go-junit-report v0.0.0-20190106144839-af01ea7f8024
+	github.com/jstemmer/go-junit-report v0.9.1
+	github.com/kr/pretty v0.2.0 // indirect
 	github.com/magiconair/properties v1.8.1
-	github.com/mitchellh/go-homedir v1.1.0
-	github.com/oracle/oci-go-sdk v7.1.0+incompatible
-	github.com/pquerna/otp v1.2.0
-	github.com/satori/go.uuid v1.2.0
 	github.com/sirupsen/logrus v1.4.2
 	github.com/stretchr/testify v1.4.0
 	github.com/tnnmuhandiram/terraform v0.0.0-20191024052749-3cb7c0818392
-	github.com/urfave/cli v1.21.0
-	golang.org/x/crypto v0.0.0-20190820162420-60c769a6c586
-	golang.org/x/net v0.0.0-20190813141303-74dc4d7220e7
-	golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45
-	google.golang.org/api v0.9.1-0.20190821000710-329ecc3c9c34
-	k8s.io/api v0.0.0-20181110191121-a33c8200050f
-	k8s.io/apimachinery v0.0.0-20190704094520-6f131bee5e2c
-	k8s.io/client-go v0.0.0-20190704095228-386e588352a4
+	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
+	golang.org/x/net v0.0.0-20200707034311-ab3426394381
+	golang.org/x/oauth2 v0.0.0-20191202225959-858c2ad4c8b6
+	golang.org/x/sys v0.0.0-20200622214017-ed371f2e16b4 // indirect
+	golang.org/x/text v0.3.3 // indirect
+	golang.org/x/time v0.0.0-20191024005414-555d28b269f0 // indirect
+	google.golang.org/api v0.15.0
+	google.golang.org/protobuf v1.24.0 // indirect
+	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
+	gopkg.in/yaml.v2 v2.2.8 // indirect
 )
 
 replace github.com/satori/go.uuid v1.2.0 => github.com/satori/go.uuid v1.2.1-0.20181028125025-b2ce2384e17b
